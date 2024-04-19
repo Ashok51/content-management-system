@@ -5,44 +5,37 @@ module Api
 
       def index
         @contents = Content.all
-        render json: @contents,
-               serializer: ContentSerializer,
-               adapter: :json_api
+
+        render_all_contents
       end
 
       def show
-        render json: @content,
-               serializer: ContentSerializer,
-               adapter: :json_api
+        render_content
       end
 
       def create
         @content = Content.new(content_params)
 
         if @content.save
-          render json: @content,
-                 serializer: ContentSerializer,
-                 adapter: :json_api
+          render_content
         else
-          render json: @content.errors, status: :unprocessable_entity
+          render_error
         end
       end
 
       def update
         if @content.update(content_params)
-          render json: @content,
-                 serializer: ContentSerializer,
-                 adapter: :json_api
+          render_content
         else
-          render json: @content.errors, status: :unprocessable_entity
+          render_error
         end
       end
 
       def destroy
         if @content.destroy
-          render json: { message: 'Deleted' }
+          render_delete_message
         else
-          render json: @content.errors, status: :unprocessable_entity
+          render_error
         end
       end
 
@@ -50,6 +43,27 @@ module Api
 
       def set_content
         @content = Content.find(params[:id])
+      end
+
+      def render_all_contents
+        render json: @contents,
+               each_serializer: ContentSerializer,
+               adapter: :json_api
+      end
+
+      def render_content
+        render json: @content,
+               serializer: ContentSerializer,
+               adapter: :json_api
+      end
+
+      def render_error
+        render json: @content.errors,
+               status: :unprocessable_entity
+      end
+
+      def render_delete_message
+        render json: { message: 'Deleted' }
       end
 
       def content_params
