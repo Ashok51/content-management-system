@@ -5,18 +5,24 @@ module Api
 
       def index
         @contents = Content.all
-        render json: @contents
+        render json: @contents,
+               serializer: ContentSerializer,
+               adapter: :json_api
       end
 
       def show
-        render json: @content
+        render json: @content,
+               serializer: ContentSerializer,
+               adapter: :json_api
       end
 
       def create
         @content = Content.new(content_params)
 
         if @content.save
-          render json: @content, status: :created
+          render json: @content,
+                 serializer: ContentSerializer,
+                 adapter: :json_api
         else
           render json: @content.errors, status: :unprocessable_entity
         end
@@ -24,7 +30,9 @@ module Api
 
       def update
         if @content.update(content_params)
-          render json: @content
+          render json: @content,
+                 serializer: ContentSerializer,
+                 adapter: :json_api
         else
           render json: @content.errors, status: :unprocessable_entity
         end
