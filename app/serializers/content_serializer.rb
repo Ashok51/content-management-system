@@ -3,14 +3,14 @@ class ContentSerializer < ActiveModel::Serializer
   attributes :id,
              :title,
              :body,
-             :createdAt,
-             :updatedAt
+             :created_at,
+             :updated_at
 
-  def createdAt
+  def created_at
     object.created_at.strftime('%Y-%m-%dT%H:%M%:z')
   end
 
-  def updatedAt
+  def updated_at
     object.updated_at.strftime('%Y-%m-%dT%H:%M%:z')
   end
 end
