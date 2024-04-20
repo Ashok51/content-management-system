@@ -2,6 +2,8 @@ module Api
   module V1    
     class ContentsController < ApplicationController
       before_action :set_content, only: [:show, :update, :destroy]
+      before_action :authenticate_user!
+      before_action :authorize_user!, only: [:update, :destroy]
 
       def index
         @contents = Content.all
@@ -14,7 +16,7 @@ module Api
       end
 
       def create
-        @content = Content.new(content_params)
+        @content = current_user_contents.new(content_params)
 
         if @content.save
           render_content
@@ -64,6 +66,18 @@ module Api
 
       def render_delete_message
         render json: { message: 'Deleted' }
+      end
+
+      def authorize_user!
+        render_unauthorized_message unless @content.user == current_user
+      end
+
+      def current_user_contents
+        current_user.contents
+      end
+
+      def render_unauthorized_message
+        render json: { error: 'Unauthorized' }, status: :unauthorized
       end
 
       def content_params
