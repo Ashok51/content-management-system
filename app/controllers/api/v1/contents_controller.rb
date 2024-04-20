@@ -2,6 +2,7 @@ module Api
   module V1    
     class ContentsController < ApplicationController
       before_action :set_content, only: [:show, :update, :destroy]
+      before_action :authenticate_user!
 
       def index
         @contents = Content.all
