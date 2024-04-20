@@ -7,6 +7,13 @@ module Api
                serializer: UserSerializer,
                adapter: :json_api
       end
+
+      private
+
+      def resource_params
+        auth = params[:auth] || params[:session][:auth]
+        auth.permit(:email, :password) if auth
+      end
     end
   end
 end
