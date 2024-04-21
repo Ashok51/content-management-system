@@ -1,25 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+App Info:
 
-Things you may want to cover:
+* Ruby version : ruby '3.0.0'
 
-* Ruby version
+* Rails version : rails '6.1.7', '>= 6.1.7.7'
 
-* System dependencies
+* Database :  Postgresql
+  
+* API Endpoints : https://lively-desert-409318.postman.co/workspace/angleswing-test~bcb97807-ab4e-4194-8b33-35f948ecc542/collection/12293545-52fc3091-ff92-4370-9a33-658413b4c299?action=share&creator=12293545
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# content-management-system
