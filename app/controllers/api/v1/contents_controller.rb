@@ -11,10 +11,6 @@ module Api
         render_all_contents
       end
 
-      def show
-        render_content
-      end
-
       def create
         @content = current_user_contents.new(content_params)
 
