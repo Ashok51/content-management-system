@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+    web:
+        build: .
+        image: content-management-system
+        restart: "no"
+        environment:
+            - DBHOST=${PGDBHOST}
+            - DBUSER=${PGDBUSER}
+            - DBPASS=${PGDBPASS}
+        ports:
+            - 3000:3000
+        depends_on:
+            - postgresql
+
+    postgresql:
+        image: postgres
+        restart: "no"
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_DB: content_management_development
+            POSTGRES_USER: ${PGDBUSER}
+            POSTGRES_PASSWORD: ${PGDBPASS}
+        volumes:
+            - postgresdb:/var/lib/postgresql/data/
+
+volumes:
+    postgresdb:
