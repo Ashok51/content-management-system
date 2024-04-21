@@ -34,6 +34,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'simplecov', require: false
+  gem 'dotenv'
 end
 
 group :development do

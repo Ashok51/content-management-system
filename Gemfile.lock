@@ -87,6 +87,7 @@ GEM
       rails (>= 4.2.0, < 7.1)
     diff-lcs (1.5.1)
     docile (1.4.0)
+    dotenv (3.1.0)
     erubi (1.12.0)
     factory_bot (6.4.6)
       activesupport (>= 5.0.0)
@@ -223,6 +224,7 @@ DEPENDENCIES
   byebug
   devise (~> 4.9)
   devise_token_auth (~> 1.2)
+  dotenv
   factory_bot_rails
   listen (~> 3.3)
   pg (~> 1.1)
