@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Api
-  module V1    
+  module V1
     class ContentsController < ApplicationController
-      before_action :set_content, only: [:show, :update, :destroy]
+      before_action :set_content, only: %i[show update destroy]
       before_action :authenticate_user!
-      before_action :authorize_user!, only: [:update, :destroy]
+      before_action :authorize_user!, only: %i[update destroy]
 
       def index
         @contents = Content.all

@@ -3,7 +3,13 @@
 class UserSerializer < ActiveModel::Serializer
   type 'user'
 
-  attributes :id, :email, :name, :country, :created_at, :updated_at, :token
+  attributes :id,
+             :email,
+             :name,
+             :country,
+             :created_at,
+             :updated_at,
+             :token
 
   def name
     "#{object.first_name} #{object.last_name}"
