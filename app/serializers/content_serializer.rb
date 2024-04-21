@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ContentSerializer < ActiveModel::Serializer
   type 'content'
   attributes :id,
