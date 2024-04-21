@@ -21,5 +21,4 @@ COPY . .
 # Expose port 3000 to the outside world
 EXPOSE 3000
 
-# Start the Rails server when the container starts
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD sh -c "/bin/sh entrypoint.sh"
