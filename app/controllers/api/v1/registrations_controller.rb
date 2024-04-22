@@ -10,8 +10,6 @@ module Api
       def create
         @resource = User.new(sign_up_params)
 
-        @resource.create_token
-
         if @resource.save!
           update_auth_header
           render_with_auth_token(@resource)
