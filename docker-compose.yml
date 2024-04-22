@@ -17,6 +17,8 @@ services:
     postgresql:
         image: postgres
         restart: "no"
+        ports:
+            - 5432:5432
         environment:
             POSTGRES_DB: content_management_development
             POSTGRES_USER: ${PGDBUSER}

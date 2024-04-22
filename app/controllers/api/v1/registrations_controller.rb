@@ -12,7 +12,7 @@ module Api
 
         @resource.create_token
 
-        if @resource.save
+        if @resource.save!
           update_auth_header
           render_with_auth_token(@resource)
         else
