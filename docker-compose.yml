@@ -10,7 +10,7 @@ services:
             - DBUSER=${PGDBUSER}
             - DBPASS=${PGDBPASS}
         ports:
-            - 3000:3000
+            - "3000:3000"
         depends_on:
             - postgresql
 

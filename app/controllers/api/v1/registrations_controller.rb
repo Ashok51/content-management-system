@@ -2,17 +2,19 @@
 
 module Api
   module V1
-    class RegistrationsController < DeviseTokenAuth::RegistrationsController
+    class RegistrationsController < ApplicationController
+      include UserAuthenticable
+
       respond_to :json
 
       def create
         @resource = User.new(sign_up_params)
 
-        if @resource.save
+        @resource.create_token
+
+        if @resource.save!
           update_auth_header
-          render json: @resource,
-                 serializer: UserSerializer,
-                 adapter: :json_api
+          render_with_auth_token(@resource)
         else
           render json: { message: @resource.errors.full_messages.join(', ') }, status: :bad_request
         end

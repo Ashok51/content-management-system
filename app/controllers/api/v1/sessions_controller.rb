@@ -1,17 +1,22 @@
 # frozen_string_literal: true
 
+# app/controllers/api/v1/sessions_controller.rb
+
 module Api
   module V1
-    class SessionsController < DeviseTokenAuth::SessionsController
-      def create
-        super do |resource|
-          if resource && response.status == 200
-            render json: resource, serializer: UserSerializer,
-                   authorization_token: auth_headers(resource)['Authorization'],
-                   adapter: :json_api
+    class SessionsController < ApplicationController
 
-            return
-          end
+      include UserAuthenticable
+
+      respond_to :json
+
+      def create
+        resource = User.find_by(email: resource_params[:email])
+
+        if resource&.valid_password?(resource_params[:password])
+          render_with_auth_token(resource)
+        else
+          render json: { error: 'Invalid email or password' }, status: :unauthorized
         end
       end
 
@@ -20,10 +25,6 @@ module Api
       def resource_params
         auth = params[:auth] || params[:session][:auth]
         auth&.permit(:email, :password)
-      end
-
-      def auth_headers(resource)
-        resource.create_new_auth_token
       end
     end
   end
