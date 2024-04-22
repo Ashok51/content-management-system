@@ -1,12 +1,13 @@
 # Use an official Ruby runtime as a parent image
 FROM ruby:3.0.0
 
-RUN apt-get update -qq && apt-get install -y postgresql-client
+# Install essential dependencies
+RUN apt-get update -qq && \
+    apt-get install -y --no-install-recommends \
+    postgresql-client && \
+    rm -rf /var/lib/apt/lists/*
 
-# freezes gemfile.lock, raise error if modify
-RUN bundle config --global frozen 1
-
-# working directory inside the container
+# Set working directory inside the container
 WORKDIR /app
 
 # Copy Gemfile and Gemfile.lock from the current directory to the container
@@ -21,4 +22,5 @@ COPY . .
 # Expose port 3000 to the outside world
 EXPOSE 3000
 
-CMD sh -c "/bin/sh entrypoint.sh"
+# Use ENTRYPOINT to define the default command
+ENTRYPOINT ["sh", "-c", "/bin/sh entrypoint.sh"]
